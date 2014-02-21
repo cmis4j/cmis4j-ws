@@ -27,6 +27,7 @@ package com.github.cmis4j.ws;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.jws.WebService;
 import javax.xml.ws.Holder;
 
 import org.oasis_open.docs.ns.cmis.core._200908.CmisAccessControlListType;
@@ -60,7 +61,8 @@ import org.oasis_open.docs.ns.cmis.ws._200908.CmisException;
 
 import com.github.cmis4j.core.CmisServiceBase;
 
-public class CmisService extends CmisServiceBase {
+@WebService(targetNamespace = "http://docs.oasis-open.org/ns/cmis/ws/200908/")
+public class CmisRepository extends CmisServiceBase {
 
 	@Override
 	public CmisACLType applyACL(String repositoryId, String objectId,

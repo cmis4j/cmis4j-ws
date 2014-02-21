@@ -27,49 +27,44 @@
 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:ctx="http://www.springframework.org/schema/context"
-	xmlns:sec="http://www.springframework.org/schema/security"
 	xmlns:jaxws="http://cxf.apache.org/jaxws"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/security
-		http://www.springframework.org/schema/security/spring-security.xsd
 		http://cxf.apache.org/jaxws
 		http://cxf.apache.org/schemas/jaxws.xsd">
-	
-	<ctx:annotation-config />
-	<ctx:property-placeholder location="classpath:cmis4j-ws.properties" />
-	
-	<sec:authentication-manager>
-		<sec:authentication-provider>
-			<sec:user-service>
-				<sec:user name="${user1.name}" password="${user1.password}" authorities="ROLE_USER" />
-				<sec:user name="${user2.name}" password="${user2.password}" authorities="ROLE_USER" />
-			</sec:user-service>
-		</sec:authentication-provider>
-	</sec:authentication-manager>
+		
+	<ctx:property-placeholder location="classpath:cmis4j-ws-test.properties" />
 
-	<jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/ns/cmis/ws/200908/" id="cmisRepository"
-		implementor="com.github.cmis4j.ws.CmisRepository" address="/CmisRepository">
-		<jaxws:properties>
-			<entry key="ws-security.ut.validator">
-				<bean class="com.github.cmis4j.ws.CmisUsernameTokenValidator" />
-			</entry>
-		</jaxws:properties>
-		<jaxws:inInterceptors>
-			<ref bean="wss4jIn" />
-		</jaxws:inInterceptors>
-	</jaxws:endpoint>
-
-	<bean id="wss4jIn" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+	<jaxws:client id="aclService" serviceClass="org.oasis_open.docs.ns.cmis.ws._200908.ACLServicePort"
+		address="${ws.url}/CmisRepository">
+		<jaxws:outInterceptors>
+			<ref bean="wss4jOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<jaxws:client id="discoveryService" serviceClass="org.oasis_open.docs.ns.cmis.ws._200908.DiscoveryServicePort"
+		address="${ws.url}/CmisRepository">
+		<jaxws:outInterceptors>
+			<ref bean="wss4jOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<bean id="wss4jOut" class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
 		<constructor-arg>
 			<map>
 				<entry key="action" value="Timestamp UsernameToken" />
 				<entry key="passwordType" value="PasswordText" />
+				<entry key="user" value="${ws.user}" />
+				<entry key="passwordCallbackRef">
+					<ref bean="passwordCallback" />
+				</entry>
 			</map>
 		</constructor-arg>
 	</bean>
-
+	
+	<bean id="passwordCallback" class="com.github.cmis4j.ws.PasswordCallbackHandler"
+		p:password="${ws.password}" />
 </beans>
