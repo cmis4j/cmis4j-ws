@@ -50,9 +50,105 @@
 			</sec:user-service>
 		</sec:authentication-provider>
 	</sec:authentication-manager>
-
-	<jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/ns/cmis/ws/200908/" id="cmisRepository"
-		implementor="com.github.cmis4j.ws.CmisRepository" address="/CmisRepository">
+	
+	<jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/ns/cmis/ws/200908/" id="aclServicePort"
+		implementor="#aclServicePortImpl" address="/ACLServicePort">
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.github.cmis4j.ws.CmisUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
+		<jaxws:inInterceptors>
+			<ref bean="wss4jIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+	
+	<jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/ns/cmis/ws/200908/" id="discoveryServicePort"
+		implementor="#discoveryServicePortImpl" address="/DiscoveryServicePort">
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.github.cmis4j.ws.CmisUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
+		<jaxws:inInterceptors>
+			<ref bean="wss4jIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+	
+	<jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/ns/cmis/ws/200908/" id="multiFilingServicePort"
+		implementor="#multiFilingServicePortImpl" address="/MultiFilingServicePort">
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.github.cmis4j.ws.CmisUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
+		<jaxws:inInterceptors>
+			<ref bean="wss4jIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+	
+	<jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/ns/cmis/ws/200908/" id="navigationServicePort"
+		implementor="#navigationServicePortImpl" address="/NavigationServicePort">
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.github.cmis4j.ws.CmisUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
+		<jaxws:inInterceptors>
+			<ref bean="wss4jIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+	
+	<jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/ns/cmis/ws/200908/" id="objectServicePort"
+		implementor="#objectServicePortImpl" address="/ObjectServicePort">
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.github.cmis4j.ws.CmisUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
+		<jaxws:inInterceptors>
+			<ref bean="wss4jIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+	
+	<jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/ns/cmis/ws/200908/" id="policyServicePort"
+		implementor="#policyServicePortImpl" address="/PolicyServicePort">
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.github.cmis4j.ws.CmisUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
+		<jaxws:inInterceptors>
+			<ref bean="wss4jIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+	
+	<jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/ns/cmis/ws/200908/" id="relationshipServicePort"
+		implementor="#relationshipServicePortImpl" address="/RelationshipServicePort">
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.github.cmis4j.ws.CmisUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
+		<jaxws:inInterceptors>
+			<ref bean="wss4jIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+	
+	<jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/ns/cmis/ws/200908/" id="repositoryServicePort"
+		implementor="#repositoryServicePortImpl" address="/RepositoryServicePort">
+		<jaxws:properties>
+			<entry key="ws-security.ut.validator">
+				<bean class="com.github.cmis4j.ws.CmisUsernameTokenValidator" />
+			</entry>
+		</jaxws:properties>
+		<jaxws:inInterceptors>
+			<ref bean="wss4jIn" />
+		</jaxws:inInterceptors>
+	</jaxws:endpoint>
+	
+	<jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/ns/cmis/ws/200908/" id="versioningServicePort"
+		implementor="#versioningServicePortImpl" address="/VersioningServicePort">
 		<jaxws:properties>
 			<entry key="ws-security.ut.validator">
 				<bean class="com.github.cmis4j.ws.CmisUsernameTokenValidator" />
@@ -63,6 +159,42 @@
 		</jaxws:inInterceptors>
 	</jaxws:endpoint>
 
+	<bean id="aclServicePortImpl" class="com.github.cmis4j.core.ACLServicePortImpl">
+		<constructor-arg ref="cmisRepository" />
+	</bean>
+
+	<bean id="discoveryServicePortImpl" class="com.github.cmis4j.core.DiscoveryServicePortImpl">
+		<constructor-arg ref="cmisRepository" />
+	</bean>
+	
+	<bean id="multiFilingServicePortImpl" class="com.github.cmis4j.core.MultiFilingServicePortImpl">
+		<constructor-arg ref="cmisRepository" />
+	</bean>
+	
+	<bean id="navigationServicePortImpl" class="com.github.cmis4j.core.NavigationServicePortImpl">
+		<constructor-arg ref="cmisRepository" />
+	</bean>
+	
+	<bean id="objectServicePortImpl" class="com.github.cmis4j.core.ObjectServicePortImpl">
+		<constructor-arg ref="cmisRepository" />
+	</bean>
+	
+	<bean id="policyServicePortImpl" class="com.github.cmis4j.core.PolicyServicePortImpl">
+		<constructor-arg ref="cmisRepository" />
+	</bean>
+	
+	<bean id="relationshipServicePortImpl" class="com.github.cmis4j.core.RelationshipServicePortImpl">
+		<constructor-arg ref="cmisRepository" />
+	</bean>
+	
+	<bean id="repositoryServicePortImpl" class="com.github.cmis4j.core.RepositoryServicePortImpl">
+		<constructor-arg ref="cmisRepository" />
+	</bean>
+	
+	<bean id="versioningServicePortImpl" class="com.github.cmis4j.core.VersioningServicePortImpl">
+		<constructor-arg ref="cmisRepository" />
+	</bean>
+
 	<bean id="wss4jIn" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
 		<constructor-arg>
 			<map>
@@ -71,5 +203,7 @@
 			</map>
 		</constructor-arg>
 	</bean>
+	
+	<bean id="cmisRepository" class="com.github.cmis4j.ws.CmisRepository" />
 
 </beans>

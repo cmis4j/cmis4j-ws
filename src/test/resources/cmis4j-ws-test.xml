@@ -39,14 +39,63 @@
 	<ctx:property-placeholder location="classpath:cmis4j-ws-test.properties" />
 
 	<jaxws:client id="aclService" serviceClass="org.oasis_open.docs.ns.cmis.ws._200908.ACLServicePort"
-		address="${ws.url}/CmisRepository">
+		address="${ws.url}/ACLServicePort">
 		<jaxws:outInterceptors>
 			<ref bean="wss4jOut" />
 		</jaxws:outInterceptors>
 	</jaxws:client>
 	
 	<jaxws:client id="discoveryService" serviceClass="org.oasis_open.docs.ns.cmis.ws._200908.DiscoveryServicePort"
-		address="${ws.url}/CmisRepository">
+		address="${ws.url}/DiscoveryServicePort">
+		<jaxws:outInterceptors>
+			<ref bean="wss4jOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<jaxws:client id="multiFilingService" serviceClass="org.oasis_open.docs.ns.cmis.ws._200908.MultiFilingServicePort"
+		address="${ws.url}/MultiFilingServicePort">
+		<jaxws:outInterceptors>
+			<ref bean="wss4jOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<jaxws:client id="navigationService" serviceClass="org.oasis_open.docs.ns.cmis.ws._200908.NavigationServicePort"
+		address="${ws.url}/NavigationServicePort">
+		<jaxws:outInterceptors>
+			<ref bean="wss4jOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<jaxws:client id="objectService" serviceClass="org.oasis_open.docs.ns.cmis.ws._200908.ObjectServicePort"
+		address="${ws.url}/ObjectServicePort">
+		<jaxws:outInterceptors>
+			<ref bean="wss4jOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<jaxws:client id="policyService" serviceClass="org.oasis_open.docs.ns.cmis.ws._200908.PolicyServicePort"
+		address="${ws.url}/PolicyServicePort">
+		<jaxws:outInterceptors>
+			<ref bean="wss4jOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<jaxws:client id="relationshipService" serviceClass="org.oasis_open.docs.ns.cmis.ws._200908.RelationshipServicePort"
+		address="${ws.url}/RelationshipServicePort">
+		<jaxws:outInterceptors>
+			<ref bean="wss4jOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<jaxws:client id="repositoryService" serviceClass="org.oasis_open.docs.ns.cmis.ws._200908.RepositoryServicePort"
+		address="${ws.url}/RepositoryServicePort">
+		<jaxws:outInterceptors>
+			<ref bean="wss4jOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<jaxws:client id="versioningService" serviceClass="org.oasis_open.docs.ns.cmis.ws._200908.VersioningServicePort"
+		address="${ws.url}/VersioningServicePort">
 		<jaxws:outInterceptors>
 			<ref bean="wss4jOut" />
 		</jaxws:outInterceptors>

@@ -24,15 +24,31 @@
 
 package com.github.cmis4j.ws;
 
+import org.oasis_open.docs.ns.cmis.ws._200908.ACLServicePort;
+import org.oasis_open.docs.ns.cmis.ws._200908.DiscoveryServicePort;
+import org.oasis_open.docs.ns.cmis.ws._200908.MultiFilingServicePort;
+import org.oasis_open.docs.ns.cmis.ws._200908.NavigationServicePort;
+import org.oasis_open.docs.ns.cmis.ws._200908.ObjectServicePort;
+import org.oasis_open.docs.ns.cmis.ws._200908.PolicyServicePort;
+import org.oasis_open.docs.ns.cmis.ws._200908.RelationshipServicePort;
+import org.oasis_open.docs.ns.cmis.ws._200908.RepositoryServicePort;
+import org.oasis_open.docs.ns.cmis.ws._200908.VersioningServicePort;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class CmisRepositoryMain {
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		try {
 			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("cmis4j-ws-test.xml");
-			CmisRepository repo = (CmisRepository) ctx.getBean("aclService");
-			System.out.println("getACL: " + repo.getACL("repoId", "objectId", false, null));
-			System.out.println("getRepositories: " + repo.getRepositories(null));
+			ACLServicePort aclService = (ACLServicePort) ctx.getBean("aclService");
+			DiscoveryServicePort discoveryService = (DiscoveryServicePort) ctx.getBean("discoveryService");
+			MultiFilingServicePort multiFilingService = (MultiFilingServicePort) ctx.getBean("multiFilingService");
+			NavigationServicePort navigationService = (NavigationServicePort) ctx.getBean("navigationService");
+			ObjectServicePort objectService = (ObjectServicePort) ctx.getBean("objectService");
+			PolicyServicePort policyService = (PolicyServicePort) ctx.getBean("policyService");
+			RelationshipServicePort relationshipService = (RelationshipServicePort) ctx.getBean("relationshipService");
+			RepositoryServicePort repositoryService = (RepositoryServicePort) ctx.getBean("repositoryService");
+			VersioningServicePort versioningService = (VersioningServicePort) ctx.getBean("versioningService");
 			ctx.close();
 		} catch (Throwable t) {
 			t.printStackTrace();
